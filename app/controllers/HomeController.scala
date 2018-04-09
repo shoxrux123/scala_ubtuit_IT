@@ -33,6 +33,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     logger.info(s"email: $email")
     logger.info(s"psw: $password")
     logger.info(s"comment: $comment")
+
     logger.info(s"sLanguages: $sLanguages")
     logger.info(s"pLanguage: $pLanguage")
       Ok(Json.toJson("Successful!"))

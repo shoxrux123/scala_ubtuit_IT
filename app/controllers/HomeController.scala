@@ -31,6 +31,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     val pLanguage = (request.body \ "pLanguage").asOpt[String]
     logger.info(s"requestBody: ${request.body}")
     logger.info(s"email: $email")
+
     logger.info(s"psw: $password")
 
     logger.info(s"comment: $comment")

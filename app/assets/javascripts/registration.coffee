@@ -7,7 +7,7 @@ $ ->
       alert('something went wrong')
 
   vm = ko.mapping.fromJS
-    email:'eee@qwe'
+    email:''
     psw: ''
     comment: ''
     slanguages: []

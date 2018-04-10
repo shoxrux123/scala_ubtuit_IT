@@ -4,6 +4,7 @@
 # ~~~~
 
 GET     /                           @controllers.HomeController.index
+GET     /tables                     @controllers.HomeController.tables
 POST    /register/                  @controllers.HomeController.register
 
 

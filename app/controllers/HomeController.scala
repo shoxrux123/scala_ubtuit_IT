@@ -13,7 +13,8 @@ import scala.concurrent.duration.DurationInt
 
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
-                               indexTemplate: index)
+                               indexTemplate: index,
+                               tablesTemplate: tables)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
 
@@ -21,6 +22,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
 
   def index = Action {
     Ok(indexTemplate())
+  }
+  def tables = Action {
+    Ok(tablesTemplate())
   }
 
   def register() = Action(parse.json){ implicit request => {

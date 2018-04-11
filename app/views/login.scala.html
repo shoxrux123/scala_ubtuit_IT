@@ -1,16 +1,18 @@
 @this(webJarsUtil: org.webjars.play.WebJarsUtil)
 @()(implicit flash: Flash)
-@import helper._
 @main("Login", webJarsUtil) {
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
-      @flash.get("error").map { errorText =>
-        <div class="row">
-          <div class="col-xs-12 text-center text-danger">
-            <h3>@errorText</h3>
+
+        @flash.get("error").map { errorText =>
+        <div class="error-transparent-danger">
+          <div class="row">
+            <div class="col-xs-12 text-center text-white">
+              <h3>@errorText</h3>
+            </div>
           </div>
         </div>
-      }
+        }
       <div class="bg-transparent-white">
         <h1 class="text-center text-danger">Login</h1>
         <form action="@controllers.routes.HomeController.loginPost()" method="post">

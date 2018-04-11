@@ -1,0 +1,40 @@
+@this(webJarsUtil: org.webjars.play.WebJarsUtil)
+@()(implicit flash: Flash)
+@import helper._
+@main("Login", webJarsUtil) {
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      @flash.get("error").map { errorText =>
+        <div class="row">
+          <div class="col-xs-12 text-center text-danger">
+            <h3>@errorText</h3>
+          </div>
+        </div>
+      }
+      <div class="bg-transparent-white">
+        <h1 class="text-center text-danger">Login</h1>
+        <form action="@controllers.routes.HomeController.loginPost()" method="post">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="email">Login:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="login" placeholder="Enter login" name="login" >
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="pwd">Password:</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="col-md-offset-4 col-md-4">
+            <button type="submit" class="btn btn-success pull-right">Submit</button> &nbsp;
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}

@@ -1,49 +1,51 @@
 package controllers
 
-import akka.util.Timeout
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject._
-import play.api.libs.json.Json
 import play.api.mvc._
 import views.html._
 
 import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.DurationInt
 
 
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                indexTemplate: index,
-                               tablesTemplate: tables)
+                               tablesTemplate: tables,
+                               loginTemplate: login)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
 
-  implicit val defaultTimeout = Timeout(60.seconds)
+  val LoginSessionKey = "login.key"
 
-  def index = Action {
-    Ok(indexTemplate())
-  }
+  def index = Action { implicit  request => {
+    request.session.get(LoginSessionKey).map{ session =>
+      logger.info(s"session: $session")
+      Ok(indexTemplate())
+    }.getOrElse{
+      Ok(loginTemplate())
+    }
+  }}
+
   def tables = Action {
     Ok(tablesTemplate())
   }
 
-  def register() = Action(parse.json){ implicit request => {
-    val email = (request.body \ "email").as[String]
-    val password = (request.body \ "psw").as[String]
-    val comment = (request.body \ "comment").asOpt[String]
-    val sLanguages = (request.body \ "sLanguages").toOption
-    val pLanguage = (request.body \ "pLanguage").asOpt[String]
-    logger.info(s"requestBody: ${request.body}")
-    logger.info(s"email: $email")
+  def login = Action { implicit request: RequestHeader => {
+    Ok(loginTemplate())
+  }}
 
-    logger.info(s"psw: $password")
-
-    logger.info(s"comment: $comment")
-
-    logger.info(s"sLanguages: $sLanguages")
-    logger.info(s"pLanguage: $pLanguage")
-      Ok(Json.toJson("Successful!"))
+  def loginPost = Action { implicit request => {
+    val formParam = request.body.asFormUrlEncoded
+    val userLogin = formParam.get("login").headOption
+    val password = formParam.get("pwd").headOption
+    if (userLogin.contains("admin") && password.contains("admin123")) {
+      Redirect(routes.HomeController.index()).addingToSession(LoginSessionKey -> userLogin.getOrElse(""))
+    } else {
+      Redirect(routes.HomeController.login()).flashing("error" -> "Something went wrong. Please try again.")
     }
-  }
+  }}
+
+
 
 }

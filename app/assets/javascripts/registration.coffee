@@ -2,6 +2,7 @@ $ ->
   window.Glob ?= {}
   apiUrl =
     reg: '/register/'
+    users: '/get-users/'
 
   handleError = (error) ->
       alert('something went wrong')
@@ -37,4 +38,17 @@ $ ->
     .done (response) ->
         alert(response)
 
-  ko.applyBindings {vm}
+
+  vm.report = ->
+    $.ajax
+      url: apiUrl.users
+      type: 'GET'
+    .fail handleError
+    .done (response) ->
+      users = response.users
+      console.log(users)
+      vm.users(users)
+      console.log(vm.users())
+      console.log(vm.users().length)
+
+      ko.applyBindings {vm}

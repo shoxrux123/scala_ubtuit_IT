@@ -1,21 +1,20 @@
 $ ->
   window.Glob ?= {}
   apiUrl =
-    reg: '/register/'
+    reg: '/signup/'
 
   handleError = (error) ->
       alert('something went wrong')
 
   vm = ko.mapping.fromJS
     email:''
+    login:''
     psw: ''
-    comment: ''
-    slanguages: []
-    planguage: ''
 
 
   vm.onSubmit = ->
     console.log('email', vm.email())
+    console.log('login', vm.login())
     console.log('slanguages', vm.slanguages())
     console.log('planguage', vm.planguage())
     console.log('psw', vm.psw())
@@ -26,10 +25,8 @@ $ ->
       type: 'POST'
       data: JSON.stringify(
         email: vm.email()
+        login: vm.login()
         psw: vm.psw()
-        comment: vm.comment()
-        sLanguages: vm.slanguages()
-        pLanguage: vm.planguage()
       )
       dataType: 'json'
       contentType: 'application/json'

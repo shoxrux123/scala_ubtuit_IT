@@ -2,7 +2,7 @@
 @()(implicit flash: Flash)
 @main("Login", webJarsUtil) {
   <div class="row">
-    <div class="col-md-offset-4 col-md-4">
+    <div class="col-md-offset-4 col-md-4 col-xs-offset-3 col-xs-6">
 
         @flash.get("error").map { errorText =>
         <div class="error-transparent-danger">

@@ -35,6 +35,12 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     Ok(loginTemplate())
   }}
 
+  def logout = Action { implicit request => {
+    Redirect(routes.HomeController.index()).withSession(
+      request.session - LoginSessionKey
+    )
+  }}
+
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded
     val userLogin = formParam.get("login").headOption

@@ -14,6 +14,7 @@
             <ul class="nav navbar-nav">
                 <li class=@if(activePage == "home") {"active"}><a href="@routes.HomeController.index()">Home</a></li>
                 <li class=@if(activePage == "tables") {"active"}><a href="@routes.HomeController.tables()">Tables</a></li>
+                <li class=@if(activePage == "users") {"active"}><a href="@routes.HomeController.users()">Users</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
                         <span class="caret"></span></a>
@@ -61,5 +62,3 @@
         </div>
     </div>
 </nav>
-
-

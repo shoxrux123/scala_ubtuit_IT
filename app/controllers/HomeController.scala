@@ -12,7 +12,8 @@ import scala.concurrent.ExecutionContext
 class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                indexTemplate: index,
                                tablesTemplate: tables,
-                               loginTemplate: login)
+                               loginTemplate: login,
+                               usersTemplate: users)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
 
@@ -29,6 +30,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
 
   def tables = Action {
     Ok(tablesTemplate())
+  }
+
+  def users = Action {
+    Ok(usersTemplate())
   }
 
   def login = Action { implicit request: RequestHeader => {

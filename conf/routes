@@ -6,6 +6,7 @@
 GET     /                           @controllers.HomeController.index
 GET     /tables                     @controllers.HomeController.tables
 GET     /login                      @controllers.HomeController.login
+GET     /users                      @controllers.HomeController.users
 POST    /login/                     @controllers.HomeController.loginPost
 GET     /logout                     @controllers.HomeController.logout
 

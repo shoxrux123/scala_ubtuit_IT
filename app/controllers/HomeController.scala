@@ -2,10 +2,12 @@ package controllers
 
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject._
+
+import play.api.libs.json.Json
 import play.api.mvc._
 import views.html._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
@@ -18,14 +20,15 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
 
   val LoginSessionKey = "login.key"
 
-  def index = Action { implicit  request => {
-    request.session.get(LoginSessionKey).map{ session =>
+  def index = Action { implicit request => {
+    request.session.get(LoginSessionKey).map { session =>
       logger.info(s"session: $session")
       Ok(indexTemplate())
-    }.getOrElse{
+    }.getOrElse {
       Ok(loginTemplate())
     }
-  }}
+  }
+  }
 
   def tables = Action {
     Ok(tablesTemplate())
@@ -33,13 +36,15 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
 
   def login = Action { implicit request: RequestHeader => {
     Ok(loginTemplate())
-  }}
+  }
+  }
 
   def logout = Action { implicit request => {
     Redirect(routes.HomeController.index()).withSession(
       request.session - LoginSessionKey
     )
-  }}
+  }
+  }
 
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded
@@ -50,8 +55,16 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     } else {
       Redirect(routes.HomeController.login()).flashing("error" -> "Something went wrong. Please try again.")
     }
+  }
+  }
+
+  def signUp = Action.async(parse.json) { implicit request => {
+    val email = (request.body \ "email").as[String]
+    val login = (request.body \ "login").as[String]
+    val psw = (request.body \ "psw").as[String]
+    logger.info(s"email: $email")
+    logger.info(s"login: $login")
+    logger.info(s"psw: $psw")
+    Future.successful(Ok(Json.toJson("Successfully user added!")))
   }}
-
-
-
 }

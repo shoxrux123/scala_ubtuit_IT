@@ -1,13 +1,13 @@
 @(activePage: String)
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#">
+      <img src="c:/Users/user/IdeaProjects/newrrr/app/views/shoxruxX 931-17/muz.png"></a>
     </div>
     <ul class="nav navbar-nav">
       <li class=@if(activePage == "home"){"active"}><a href="@routes.HomeController.index()">Home</a></li>
-      <li class=@if(activePage == "tables"){"active"}><a href="@routes.HomeController.tables()">Tables</a></li>
-
+      <li><a href="#">Tables</a></li>
       @*<li><a href="#">Page 3</a></li>*@
     </ul>
   </div>

@@ -1,5 +1,6 @@
 @this(webJarsUtil: org.webjars.play.WebJarsUtil)
 @()
+<<<<<<< HEAD
 @main("Sign Up", webJarsUtil) {
   @navbar("sign_up")
   <br>
@@ -46,3 +47,44 @@
     </div>
   </div>
 }
+=======
+@main("Login", webJarsUtil) {
+  @navbar("SignUp")
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4 col-xs-offset-3 col-xs-6">
+      <div class="bg-transparent-white">
+        <h1 class="text-center text-danger">Sign Up</h1>
+        <form action="@controllers.routes.HomeController.signUp()" method="post">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="email">Email:</label>
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" >
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="login">Login:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="login" placeholder="Enter login" name="login" >
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="pwd">Password:</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="col-md-offset-4 col-md-4">
+            <button type="submit" class="btn btn-success pull-right">Submit</button> &nbsp;
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+>>>>>>> origin/master

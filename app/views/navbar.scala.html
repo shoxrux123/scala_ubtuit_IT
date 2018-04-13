@@ -1,4 +1,4 @@
-@(activePage: String)
+@(activePage: String, session: Option[String] = None)
 
 <nav class="navbar-fixed-top navbar-inverse">
     <div class="container-fluid">
@@ -44,9 +44,13 @@
             </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class=@if(activePage == "SignUp") {"active"}><a href="@routes.HomeController.signUp()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            <li><a href="@routes.HomeController.logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+            @if(session.isDefined) {
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> @session.get</a></li>
+              <li><a href="@routes.HomeController.logout()"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+            } else {
+              <li class=@if(activePage == "SignUp") {"active"}><a href="@routes.HomeController.signUp()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="@routes.HomeController.login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            }
           </ul>
           <form class="navbar-form navbar-right" action="#">
               <div class="input-group">

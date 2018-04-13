@@ -4,31 +4,13 @@ import java.util.Date
 
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject._
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 import play.api.libs.json.Json
 import play.api.mvc._
 import views.html._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-
-@Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents,
-                               indexTemplate: index,
-                               tablesTemplate: tables,
-                               loginTemplate: login)
-                              (implicit val ec: ExecutionContext)
-  extends BaseController with LazyLogging {
-
-  val LoginSessionKey = "login.key"
-<<<<<<< Updated upstream
-
-  def index = Action { implicit request => {
-    request.session.get(LoginSessionKey).map { session =>
-=======
+object HomeController {
   case class Users(email: String, login: String, createdAt: Date)
   var UsersList = List.empty[Users]
   val user1 = Users(
@@ -37,9 +19,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     createdAt = new Date
   )
   val user2 = Users(
-      email = "shoxrux0390.@mail.ru",
-      login = "shoxrux123",
-      createdAt = new Date
+    email = "shoxrux0390.@mail.ru",
+    login = "shoxrux123",
+    createdAt = new Date
   )
   val user3 = Users(
     email = "shoxruxxudoynazarov0390.@mail.ru",
@@ -81,16 +63,28 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     login = "user123",
     createdAt = new Date
   )
+  }
+
+
+@Singleton
+class HomeController @Inject()(val controllerComponents: ControllerComponents,
+                               indexTemplate: index,
+                               tablesTemplate: tables,
+                               loginTemplate: login,
+                               signUpTemplate: sign_up)
+                              (implicit val ec: ExecutionContext)
+  extends BaseController with LazyLogging {
+  import HomeController._
+  val LoginSessionKey = "login.key"
+
   def index = Action { implicit  request => {
     request.session.get(LoginSessionKey).map{ session =>
->>>>>>> Stashed changes
       logger.info(s"session: $session")
       Ok(indexTemplate())
     }.getOrElse {
       Ok(loginTemplate())
     }
-  }
-  }
+  }}
 
   def tables = Action {
     Ok(tablesTemplate())
@@ -129,13 +123,18 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   }
   }
 
-  def signUp = Action.async(parse.json) { implicit request => {
-    val email = (request.body \ "email").as[String]
-    val login = (request.body \ "login").as[String]
-    val psw = (request.body \ "psw").as[String]
+  def showSignUpPage = Action {
+    Ok(signUpTemplate())
+  }
+
+  def signUp =  Action { implicit request => {
+    val formParam = request.body.asFormUrlEncoded
+    val email = formParam.get("email").head
+    val login = formParam.get("login").head
+    val pwd = formParam.get("pwd").head
     logger.info(s"email: $email")
     logger.info(s"login: $login")
-    logger.info(s"psw: $psw")
-    Future.successful(Ok(Json.toJson("Successfully user added!")))
+    logger.info(s"psw: $pwd")
+    Ok("Successfully user added!")
   }}
 }

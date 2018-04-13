@@ -8,13 +8,11 @@ GET     /tables                     @controllers.HomeController.tables
 GET     /login                      @controllers.HomeController.login
 POST    /login/                     @controllers.HomeController.loginPost
 GET     /logout                     @controllers.HomeController.logout
-<<<<<<< Updated upstream
-POST    /signUp/                     @controllers.HomeController.signUp
-=======
-#GET     /report                     @controllers.HomeController.report
+POST    /signUp/                    @controllers.HomeController.signUp
+GET     /signUp/                    @controllers.HomeController.showSignUpPage
+#GET     /report                    @controllers.HomeController.report
 
 
->>>>>>> Stashed changes
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               @controllers.Assets.versioned(path="/public", file)
 ->      /webjars                    webjars.Routes

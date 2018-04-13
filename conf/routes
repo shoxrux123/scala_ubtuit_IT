@@ -9,6 +9,7 @@ GET     /login                      @controllers.HomeController.login
 GET     /users                      @controllers.HomeController.users
 POST    /login/                     @controllers.HomeController.loginPost
 GET     /logout                     @controllers.HomeController.logout
+GET     /sign_up                    @controllers.HomeController.sign_up
 GET     /get-users/                 @controllers.HomeController.users
 
 # Map static resources from the /public folder to the /assets URL path

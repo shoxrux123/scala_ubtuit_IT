@@ -1,11 +1,16 @@
 package controllers
 
+import java.util.Date
+
 import com.typesafe.scalalogging.LazyLogging
 import javax.inject._
+import play.api.libs.json.Json
 import play.api.mvc._
 import views.html._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
+
+
 
 
 @Singleton
@@ -13,7 +18,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                indexTemplate: index,
                                tablesTemplate: tables,
                                loginTemplate: login,
-                               usersTemplate: users)
+                               usersTemplate: users,
+                               signUpTemplate: sign_up)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
 
@@ -27,25 +33,25 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
       Ok(loginTemplate())
     }
   }}
-
   def tables = Action {
     Ok(tablesTemplate())
   }
-
-  def users = Action {
-    Ok(usersTemplate())
-  }
-
   def login = Action { implicit request: RequestHeader => {
     Ok(loginTemplate())
-  }}
-
+  }
+  }
   def logout = Action { implicit request => {
     Redirect(routes.HomeController.index()).withSession(
       request.session - LoginSessionKey
     )
   }}
+  def showSignUpPage = Action {
+      Ok(signUpTemplate())
+    }
 
+  def users = Action {
+    Ok(usersTemplate())
+  }
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded
     val userLogin = formParam.get("login").headOption
@@ -55,8 +61,25 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     } else {
       Redirect(routes.HomeController.login()).flashing("error" -> "Something went wrong. Please try again.")
     }
+  }
+  }
+
+
+  def signUp =  Action { implicit request => {
+    val formParam = request.body.asFormUrlEncoded
+    val email = formParam.get("email").head
+    val login = formParam.get("login").head
+    val pwd = formParam.get("pwd").head
+    logger.info(s"email: $email")
+    logger.info(s"login: $login")
+    logger.info(s"psw: $pwd")
+    Ok("Successfully user added!")
   }}
-
-
-
 }
+
+
+
+
+
+
+

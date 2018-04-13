@@ -8,11 +8,11 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import views.html._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 object HomeController {
   case class Users(email: String, login: String, createdAt: Date)
-  var UsersList = List.empty[Users]
+  var usersList = List.empty[Users]
   val user1 = Users(
     email = "asdf@asd.dd",
     login = "asdf",
@@ -77,6 +77,8 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   import HomeController._
   val LoginSessionKey = "login.key"
 
+  implicit val usersFormat = Json.format[Users]
+
   def index = Action { implicit  request => {
     request.session.get(LoginSessionKey).map{ session =>
       logger.info(s"session: $session")
@@ -92,24 +94,18 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
 
   def login = Action { implicit request: RequestHeader => {
     Ok(loginTemplate())
-  }
-  }
-
+  }}
 
   def logout = Action { implicit request => {
     Redirect(routes.HomeController.index()).withSession(
       request.session - LoginSessionKey
     )
-  }
-  }
+  }}
 
-//  def report = Action {
-//    val usersList = List(user1,user2,user3,user4,user5,user6,user7,user8,user9,user10)
-//    usersList.map{ users =>
-//      Ok(Json.toJson(Map("users" -> users)))
-//    }
-//  }
-
+  def report = Action {
+    usersList = List(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10)
+      Ok(Json.toJson(usersList))
+  }
 
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded
@@ -120,8 +116,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     } else {
       Redirect(routes.HomeController.login()).flashing("error" -> "Something went wrong. Please try again.")
     }
-  }
-  }
+  }}
 
   def showSignUpPage = Action {
     Ok(signUpTemplate())

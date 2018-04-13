@@ -15,8 +15,6 @@ $ ->
   vm.onSubmit = ->
     console.log('email', vm.email())
     console.log('login', vm.login())
-    console.log('slanguages', vm.slanguages())
-    console.log('planguage', vm.planguage())
     console.log('psw', vm.psw())
 
     console.log('comment', vm.comment())

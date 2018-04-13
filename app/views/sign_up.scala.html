@@ -4,13 +4,14 @@
 @main("Sign Up", webJarsUtil) {
   @navbar("sign_up")
   <br>
+  <br>
   <h1 class="text-center text-danger">UNIQUE LOGIN FORM</h1>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 menu">
-        <div class="bg-transparent-blue">
+      <div class="col-md-6 col-xs-6">
+      <div class="form-group">
+        <div class="bg-transparent-white">
           <h2 class="text-center">Sign In Form</h2>
-          <form>
             <input type="text" class="form-control glyphicon  glyphicon-user" placeholder="USERNAME">
             <br>
 
@@ -18,17 +19,20 @@
             <br>
             <div class="row">
               <div class="col-md-6">
-                <button type="button" class="btn btn-success ">SIGN IN</button>
+                <button type="button" class="btn btn-success " style="width: 100%">SIGN IN</button>
               </div>
               <div class="col-md-6">
-                <button type="reset" class="btn btn-danger">RESET</button>
+                <button type="reset" class="btn btn-danger" style="width: 100%">RESET</button>
               </div>
             </div>
-          </form>
         </div>
-        <div class=" col-md-6  ">
+        </div>
+
+        <div class=" col-md-6 col-xs-6 ">
+            <div class="bg-transparent-white">
+                <div class="form-group">
          <h2 class="text-center">Sign UP Form</h2>
-          <form>
+
             <input type="text" class="form-control glyphicon  glyphicon-user" placeholder="USERNAME">
             <br>
 
@@ -40,11 +44,13 @@
 
             <input type="password" class="form-control glyphicon  glyphicon-lock" placeholder="********">
             <br>
-            <button type="button" class="btn btn-success">REGISTER</button>
-          </form>
+            <button type="button" class="btn btn-success" style="width: 100%">REGISTER</button>
+
         </div>
       </div>
     </div>
+      </div>
+  </div>
   </div>
 }
 =======

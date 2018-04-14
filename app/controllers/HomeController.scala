@@ -12,10 +12,9 @@ import scala.concurrent.ExecutionContext
 
 object HomeController {
   case class Users(email: String, login: String, createdAt: Date)
-  var usersList = List.empty[Users]
   val user1 = Users(
     email = "asdf@asd.dd",
-    login = "asdf",
+    login = "admin",
     createdAt = new Date
   )
   val user2 = Users(
@@ -63,7 +62,8 @@ object HomeController {
     login = "user123",
     createdAt = new Date
   )
-  }
+  var usersList = List(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10)
+}
 
 
 @Singleton
@@ -71,6 +71,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                indexTemplate: index,
                                tablesTemplate: tables,
                                loginTemplate: login,
+                               usersTemplate: users,
                                signUpTemplate: sign_up)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
@@ -80,16 +81,15 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   implicit val usersFormat = Json.format[Users]
 
   def index = Action { implicit  request => {
-    request.session.get(LoginSessionKey).map{ session =>
-      logger.info(s"session: $session")
-      Ok(indexTemplate())
-    }.getOrElse {
-      Ok(loginTemplate())
-    }
+    val session = request.session.get(LoginSessionKey)
+    Ok(indexTemplate(session))
   }}
 
   def tables = Action {
     Ok(tablesTemplate())
+  }
+  def users = Action {
+    Ok(usersTemplate())
   }
 
   def login = Action { implicit request: RequestHeader => {
@@ -102,19 +102,23 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     )
   }}
 
-  def report = Action {
-    usersList = List(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10)
+  def report = Action { implicit  request => {
+    request.session.get(LoginSessionKey).map{ session =>
       Ok(Json.toJson(usersList))
-  }
+    }.getOrElse {
+      Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")
+    }
+  }}
 
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded
     val userLogin = formParam.get("login").headOption
     val password = formParam.get("pwd").headOption
-    if (userLogin.contains("admin") && password.contains("admin123")) {
+    val checkLoginDefining = usersList.exists(_.login == userLogin.getOrElse(""))
+    if (checkLoginDefining && password.contains("admin123")) {
       Redirect(routes.HomeController.index()).addingToSession(LoginSessionKey -> userLogin.getOrElse(""))
     } else {
-      Redirect(routes.HomeController.login()).flashing("error" -> "Something went wrong. Please try again.")
+      Redirect(routes.HomeController.login()).flashing("error" -> "Your login or password is incorrect.")
     }
   }}
 
@@ -127,9 +131,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     val email = formParam.get("email").head
     val login = formParam.get("login").head
     val pwd = formParam.get("pwd").head
-    logger.info(s"email: $email")
-    logger.info(s"login: $login")
-    logger.info(s"psw: $pwd")
+    usersList = usersList :+ Users(email, login, new Date())
     Ok("Successfully user added!")
   }}
 }

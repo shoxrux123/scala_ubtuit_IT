@@ -32,4 +32,16 @@ $ ->
     .done (response) ->
         alert(response)
 
+    vm.report = ->
+    $.ajax
+      url: apiUrl.users
+      type: 'GET'
+      .fail handleError
+      .done (response) ->
+      users = response.users
+      console.log(users)
+      vm.users(users)
+      console.log(vm.users())
+      console.log(vm.users().length)
+
   ko.applyBindings {vm}

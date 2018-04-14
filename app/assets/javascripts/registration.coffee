@@ -2,6 +2,7 @@ $ ->
   window.Glob ?= {}
   apiUrl =
     reg: '/signup/'
+    reg: '/users'
 
   handleError = (error) ->
       alert('something went wrong')

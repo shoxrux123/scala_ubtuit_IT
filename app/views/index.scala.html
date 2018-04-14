@@ -1,7 +1,7 @@
 @this(webJarsUtil: org.webjars.play.WebJarsUtil)
-@(session: Option[String])
+@()
 @main("Home", webJarsUtil) {
-    @navbar("home", session)
+    @navbar("home")
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -14,7 +14,7 @@
         <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <div class="item active">
-            <img src="@routes.Assets.versioned("images/image2.png")"  style="width: 1500px; height: 400px" alt="CSSHtml" >
+            <img src="@routes.Assets.versioned("images/CSS%20and%20HTML.png")" style="width: 1500px; height: 400px" alt="CSSHtml" >
             <div class="carousel-caption">
                 <h3>CSS and HTML</h3>
                 <p>CSS and HTML </p>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="item">
-            <img src="@routes.Assets.versioned("images/image1.png")"  style="height: 400px; width: 1500px" alt="Play2" >
+            <img src="@routes.Assets.versioned("images/play.jpg")" style="height: 400px; width: 1500px" alt="Play2" >
             <div class="carousel-caption">
                 <h3>Play 2</h3>
                 <p>Play Framework 2</p>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="item">
-            <img src="@routes.Assets.versioned("images/scala.png")"  style="width: 1500px; height: 400px" alt="programmer" width="100%">
+            <img src="@routes.Assets.versioned("images/Programmer1.jpg")" style="width: 1500px; height: 400px" alt="programmer" width="100%">
             <div class="carousel-caption">
                 <h3>Programmer</h3>
                 <p>This is good job!</p>

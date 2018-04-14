@@ -52,6 +52,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
                                tablesTemplate: tables,
                                loginTemplate: login,
                                usersTemplate: users,
+                               not_foundTemplate: not_found,
                                signUpTemplate: sign_up)
                               (implicit val ec: ExecutionContext)
   extends BaseController with LazyLogging {
@@ -76,6 +77,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     Ok(loginTemplate())
   }}
 
+  def not_found = Action {
+    Ok(not_foundTemplate())
+  }
   def logout = Action { implicit request => {
     Redirect(routes.HomeController.index()).withSession(
       request.session - LoginSessionKey

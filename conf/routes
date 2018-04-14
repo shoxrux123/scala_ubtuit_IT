@@ -12,6 +12,7 @@ GET     /users                      @controllers.HomeController.users
 POST    /signUp/                    @controllers.HomeController.signUp
 GET     /signUp/                    @controllers.HomeController.showSignUpPage
 GET     /report                     @controllers.HomeController.report
+GET     /not_found                  @controllers.HomeController.not_found
 
 
 # Map static resources from the /public folder to the /assets URL path

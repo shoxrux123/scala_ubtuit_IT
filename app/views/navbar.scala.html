@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav">
                 <li class=@if(activePage == "home") {"active"}><a href="@routes.HomeController.index()">Home</a></li>
                 <li class=@if(activePage == "tables") {"active"}><a href="@routes.HomeController.tables()">Tables</a></li>
-                <li class=@if(activePage == "not_found") {"active"}><a href="#">Not Found</a></li>
+                <li class=@if(activePage == "not_found") {"active"}><a href="@routes.HomeController.not_found()">Not Found</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
                         <span class="caret"></span></a>

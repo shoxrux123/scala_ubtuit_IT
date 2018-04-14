@@ -8,6 +8,7 @@ GET     /tables                     @controllers.HomeController.tables
 GET     /login                      @controllers.HomeController.login
 POST    /login/                     @controllers.HomeController.loginPost
 GET     /logout                     @controllers.HomeController.logout
+GET     /users                      @controllers.HomeController.users
 POST    /signUp/                    @controllers.HomeController.signUp
 GET     /signUp/                    @controllers.HomeController.showSignUpPage
 GET     /report                     @controllers.HomeController.report

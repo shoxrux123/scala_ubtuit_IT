@@ -2,7 +2,7 @@ $ ->
   window.Glob ?= {}
   apiUrl =
     reg: '/signup/'
-    reg: '/users'
+    users: '/report'
 
   handleError = (error) ->
       alert('something went wrong')
@@ -11,6 +11,7 @@ $ ->
     email:''
     login:''
     psw: ''
+    users: []
 
 
   vm.onSubmit = ->
@@ -31,18 +32,17 @@ $ ->
       contentType: 'application/json'
     .fail handleError
     .done (response) ->
-        alert(response)
+      alert(response)
 
-    vm.report = ->
+  vm.report = ->
     $.ajax
       url: apiUrl.users
       type: 'GET'
-      .fail handleError
-      .done (response) ->
-      users = response.users
-      console.log(users)
+    .fail handleError
+    .done (response) ->
+      users = response
       vm.users(users)
-      console.log(vm.users())
-      console.log(vm.users().length)
+
+  vm.report()
 
   ko.applyBindings {vm}

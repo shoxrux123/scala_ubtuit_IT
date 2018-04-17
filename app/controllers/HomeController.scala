@@ -69,9 +69,13 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   def tables = Action {
     Ok(tablesTemplate())
   }
-  def users = Action {
+  def users = Action { implicit  request => {
+    request.session.get(LoginSessionKey).map{ session =>
     Ok(usersTemplate())
-  }
+    }.getOrElse {
+      Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")
+    }
+  }}
 
   def login = Action { implicit request: RequestHeader => {
     Ok(loginTemplate())

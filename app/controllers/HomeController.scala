@@ -13,9 +13,9 @@ import scala.concurrent.ExecutionContext
 object HomeController {
   case class Users(email: String, login: String, password: String, createdAt: Date)
   val user1 = Users(
-    email = "asdf@asd.dd",
+    email = "admin@admin.com",
     login = "admin",
-    password = "az456",
+    password = "admin123",
     createdAt = new Date
   )
   val user2 = Users(

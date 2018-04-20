@@ -40,9 +40,14 @@ $ ->
       type: 'GET'
     .fail handleError
     .done (response) ->
+      for user in response
+        user.createdAt = convertIntToDateTime(user.createdAt)
       users = response
       vm.users(users)
 
   vm.report()
+
+  convertIntToDateTime = (intDate)->
+    moment(parseInt(intDate)).format('MMM DD, YYYY HH:mm:ss')
 
   ko.applyBindings {vm}

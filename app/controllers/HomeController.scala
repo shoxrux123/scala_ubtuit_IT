@@ -91,7 +91,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   }}
 
   def report = Action { implicit  request => {
-    request.session.get(LoginSessionKey).map{ session =>
+    request.session.get(LoginSessionKey).map{ _ =>
       Ok(Json.toJson(usersList))
     }.getOrElse {
       Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")

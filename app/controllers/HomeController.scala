@@ -54,8 +54,7 @@ object HomeController {
     Student("Abdulla", "ChangeMe"),
     Student("Naima", "ChangeMe"),
     Student("Yulduz", "ChangeMe"),
-    Student("Nizomiddin", "ChangeMe"),
-    Student("Shohrux", "ChangeMe"),
+    Student("Nizomiddin", "ChangeMe")
   )
   }
 
@@ -105,13 +104,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     )
   }}
 
-  def students = Action { implicit  request => {
-    request.session.get(LoginSessionKey).map{ _ =>
-      Ok(Json.toJson(studentsList))
-    }.getOrElse {
-      Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")
-    }
-  }}
   def report = Action { implicit  request => {
       request.session.get(LoginSessionKey).map{ _ =>
         Ok(Json.toJson(usersList))

@@ -14,6 +14,7 @@ $ ->
     psw: ''
     users: []
     students: []
+    tableIsShown: false
 
 
   vm.onSubmit = ->

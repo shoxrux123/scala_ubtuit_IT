@@ -105,13 +105,20 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     )
   }}
 
-  def report = Action { implicit  request => {
+  def students = Action { implicit  request => {
     request.session.get(LoginSessionKey).map{ _ =>
-      Ok(Json.toJson(usersList))
+      Ok(Json.toJson(studentsList))
     }.getOrElse {
       Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")
     }
   }}
+  def report = Action { implicit  request => {
+      request.session.get(LoginSessionKey).map{ _ =>
+        Ok(Json.toJson(usersList))
+      }.getOrElse {
+        Redirect(routes.HomeController.login()).flashing("error" -> "Please login to get users report.")
+      }
+   }}
 
   def loginPost = Action { implicit request => {
     val formParam = request.body.asFormUrlEncoded

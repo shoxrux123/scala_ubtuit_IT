@@ -3,6 +3,7 @@ $ ->
   apiUrl =
     reg: '/signup/'
     users: '/report'
+    student: '/students'
 
   handleError = (error) ->
       alert('something went wrong')
@@ -12,6 +13,11 @@ $ ->
     login:''
     psw: ''
     users: []
+
+  vm = ko.mapping.fromJS
+    name:''
+    group:''
+    student: []
 
 
   vm.onSubmit = ->
@@ -31,7 +37,7 @@ $ ->
       dataType: 'json'
       contentType: 'application/json'
     .fail handleError
-    .done (response) ->
+    .done (response) -
       alert(response)
 
   vm.report = ->
@@ -49,5 +55,16 @@ $ ->
 
   convertIntToDateTime = (intDate)->
     moment(parseInt(intDate)).format('MMM DD, YYYY HH:mm:ss')
+
+  vm.students = ->
+    $.ajax
+      url: apiUrl.student
+      type: 'GET'
+    .fail handleError
+    .done (response) ->
+      student = response
+      vm.students(student)
+
+  vm.students()
 
   ko.applyBindings {vm}

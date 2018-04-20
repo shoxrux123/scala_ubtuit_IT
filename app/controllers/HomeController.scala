@@ -43,6 +43,20 @@ object HomeController {
     createdAt = new Date
   )
   var usersList = List(user1, user2, user3, user4, user5)
+
+  case class Student(name: String, group: String)
+  var studentsList = List(
+    Student("Maftunbek", "951-17"),
+    Student("Shohrux", "ChangeMe"),
+    Student("Sirojiddin", "ChangeMe"),
+    Student("X.Shohrux", "ChangeMe"),
+    Student("JavlonBek", "ChangeMe"),
+    Student("Abdulla", "ChangeMe"),
+    Student("Naima", "ChangeMe"),
+    Student("Yulduz", "ChangeMe"),
+    Student("Nizomiddin", "ChangeMe"),
+    Student("Shohrux", "ChangeMe"),
+  )
   }
 
 
@@ -60,6 +74,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
   val LoginSessionKey = "login.key"
 
   implicit val usersFormat = Json.format[Users]
+  implicit val studentFormat = Json.format[Student]
 
   def index = Action { implicit  request => {
     val session = request.session.get(LoginSessionKey)
@@ -122,5 +137,10 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents,
     usersList = usersList :+ Users(email, login, pwd, new Date())
     Redirect(routes.HomeController.login())
   }}
-  }
+
+  def getStudents() = Action { implicit  request => {
+      Ok(Json.toJson(studentsList))
+  }}
+
+}
 

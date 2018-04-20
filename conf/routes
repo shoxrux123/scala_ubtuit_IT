@@ -13,6 +13,7 @@ POST    /signUp/                    @controllers.HomeController.signUp
 GET     /signUp/                    @controllers.HomeController.showSignUpPage
 GET     /report                     @controllers.HomeController.report
 GET     /not_found                  @controllers.HomeController.not_found
+GET     /students                   @controllers.HomeController.getStudents
 
 
 # Map static resources from the /public folder to the /assets URL path
